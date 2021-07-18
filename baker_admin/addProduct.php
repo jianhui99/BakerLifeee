@@ -21,10 +21,11 @@ if(isset($_GET['editProduct'])){
 if(isset($_POST['addProduct'])){
     $product_name = $_POST['product_name'];
     $product_status = $_POST['product_status'];
+    $product_description = $_POST['description'];
     $product_image = $_FILES['product_image']['name'];
     $target = "../images/Product/".basename($product_image);
 
-    $insert_sql = "insert into product(name,image,status) values('$product_name', '$product_image', '$product_status')";
+    $insert_sql = "insert into product(name,description,image,status) values('$product_name', '$product_description' ,'$product_image', '$product_status')";
     $insert_query = $con->query($insert_sql);
     if(mysqli_affected_rows($con) > 0){
         if($product_image != ""){
@@ -43,6 +44,7 @@ if(isset($_POST['updateProduct'])){
     
     $product_id = $_POST['product_id'];
     $product_name = $_POST['product_name'];
+    $product_description = $_POST['description'];
     $product_status = $_POST['product_status'];
     $product_image = $_FILES['product_image']['name'];
     if($product_image != ''){
@@ -55,7 +57,7 @@ if(isset($_POST['updateProduct'])){
         $target = "../images/Product/".basename($product_image);
     }
 
-    $update_sql = "update product set name = '$product_name', image = '$product_image', status = '$product_status' where id = '$product_id'";
+    $update_sql = "update product set name = '$product_name', description = '$product_description' ,image = '$product_image', status = '$product_status' where id = '$product_id'";
     $update_query = $con->query($update_sql);
     if(mysqli_affected_rows($con) > 0){
         if($product_image != ""){
@@ -89,6 +91,11 @@ if(isset($_POST['updateProduct'])){
             <form action="addProduct.php" method="POST" enctype="multipart/form-data">
                 <label for="product_name">Product Name</label>
                 <input type="text" name="product_name" class="form-control mb-2" placeholder="Enter product name" required value="<?php if(isset($result['name'])) echo($result['name']) ?>">
+                
+                <label for="description">Product Description</label>
+                <textarea name="description" cols="10" rows="5" class="form-control mb-2"><?php if(isset($result['description'])) echo($result['description']) ?></textarea>
+
+                
                 <label for="product_image">Product Image</label> <br>
                 <img src="..\images\Product\<?=$result['image']?>" width="80px" class="m-3">
                 <input type="file" name="product_image" id="product_image" class="form-control mb-2" value="<?php if(isset($result['image'])) echo($result['image']) ?>">
@@ -117,6 +124,11 @@ if(isset($_POST['updateProduct'])){
             <form action="addProduct.php" method="POST" enctype="multipart/form-data">
                 <label for="product_name">Product Name</label>
                 <input type="text" name="product_name" class="form-control mb-2" placeholder="Enter product name" required value="<?php if(isset($result['name'])) echo($result['name']) ?>">
+                
+                <label for="description">Product Description</label>
+                <textarea name="description" cols="10" rows="5" class="form-control mb-2"><?php if(isset($result['description'])) echo($result['description']) ?></textarea>
+                
+                
                 <label for="product_image">Product Image</label>
                 <input type="file" name="product_image" id="product_image" class="form-control mb-2" value="<?php if(isset($result['image'])) echo($result['image']) ?>">
                 <label for="product_status">Product Status</label>

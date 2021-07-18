@@ -48,6 +48,7 @@ $result = mysqli_query($con, $query);
         <tr>
             <td> No</td>
             <td> Name</td>
+            <td> Description</td>
             <td> Image</td>
             <td> Status</td>
             <td> Action</td>
@@ -59,6 +60,7 @@ $result = mysqli_query($con, $query);
             ?>
                 <td><?=$row['id']?></td>
                 <td><?= $row['name']?></td>
+                <td  class="w-25"><?= $row['description']?></td>
                 <td><img src="..\images\Product\<?=$row['image']?>" width="80px"></td>
                 <td><?php 
                     if($row['status'] == '0'){

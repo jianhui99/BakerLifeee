@@ -1,8 +1,21 @@
 <?php
 require_once 'database/db_connection.php';
 
-$sql = "select * from product where status = 1";
-$result = mysqli_query($con, $sql);
+if(isset($_GET['p']) && isset($_GET['p']) != null){
+  $pid = base64_decode($_GET['p']);
+  $sql = "select * from product where id = '$pid'";
+  $result = mysqli_query($con, $sql);
+  $product = mysqli_fetch_assoc($result);
+  if($product != null){
+    $product = $product;
+  }else{
+    $product = null;
+	  header('location:product.php');
+  }
+}else{
+	header('location:product.php');
+}
+
 
 ?>
 
@@ -57,36 +70,23 @@ $result = mysqli_query($con, $sql);
 
     <!-- product section -->
     <section class="chocolate_section layout_padding">
-      <div class="container">
-        <div class="heading_container">
-          <h2>
-            Our bakey products
-          </h2>
-          <p>
-          Homemade baking is a very personal thing and we aim for perfection, safety, and delicious in all that we create.
-          </p>
-          <p>Click to view product details</p>
-        </div>
-      </div>
-      <div class="container">
-        <div class="chocolate_container">
-          <?php
-            while($row=mysqli_fetch_assoc($result)){ ?>
-            <div class="box"  style="cursor:help" onclick="location.href='product_details.php?p=<?php echo(base64_encode($row['id'])); ?>'">
-            <div class="img-box">
-              <img src="images/Product/<?= $row['image']?>" alt="<?= $row['name']?>">
+        <div class="container">
+            <div class="heading_container">
+                <h2>Our bakey products</h2>
+                <p>Homemade baking is a very personal thing and we aim for perfection, safety, and delicious in all that we create.</p>
+
+                <div class="card product-details">
+                  <img class="card-img-top" src="images\Product\<?= $product['image'] ?>" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title"><?= $product['name'] ?></h5>
+                    <p class="card-text"><?= $product['description'] ?></p>
+                    <button class="form-control product-order" onclick="location.href = 'contact.php'">Order Now!</button>
+                  </div>
+                </div>
             </div>
-            <div class="detail-box">
-              <h6><?= $row['name']?></h6>
-              <b><a href="contact.php">Order Now</a></b>
-            </div>
-          </div>
-          <?php } ?>
         </div>
-      </div>
     </section>
     <!-- end product section -->
-
     <?php
       $contact_flag = "
       <html>
@@ -151,7 +151,6 @@ $result = mysqli_query($con, $sql);
       </html>";
       echo($contact_flag);
     ?>
-
     <!-- info section -->
       <?php require_once 'info.php'; ?>
     <!-- end info_section -->

@@ -400,6 +400,7 @@ a:focus {
 
 .about_section .img-box img {
   width: 100%;
+  border-radius: 3%;
 }
 
 .chocolate_section .heading_container {
@@ -427,7 +428,8 @@ a:focus {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border: 1px solid #6c6c6c;
+  border: 1px solid #FFCCCC;
+  border-radius: 2%;
   padding-top: 25px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -459,8 +461,8 @@ a:focus {
   color: #FF9966;
   padding: 15px;
   margin-top: 10px;
-  opacity: 0;
-  visibility: hidden;
+  /* opacity: 0;
+  visibility: hidden; */
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
@@ -1047,4 +1049,24 @@ a:focus {
 .banner-img-box img{
   width: 100%;
   border-radius: 5%;
+}
+
+.product-details{
+  width: 30rem;
+}
+
+.product-details h5{
+  color: #FF9966;
+  font-weight: 600;
+}
+
+.product-order{
+  background: #FFCCCC;
+  color: #FF9966;
+  border: solid 1px #FF9966;
+}
+
+.product-order:focus{
+  background: #FF9966;
+  color: #FFCCCC;
 }

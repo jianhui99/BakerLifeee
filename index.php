@@ -3,6 +3,32 @@ require_once 'database/db_connection.php';
 
 $sql = "select * from banner where status = 1";
 $result = mysqli_query($con, $sql);
+
+if(!empty($_SERVER['HTTP_CLIENT_IP'])) {  
+    $ip = $_SERVER['HTTP_CLIENT_IP'];  
+}  
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {  
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];  
+}  
+else{  
+    $ip = $_SERVER['REMOTE_ADDR'];  
+}
+
+if(!empty($ip)){
+    $ip = $ip;
+}else{
+    $ip = "private visitor";
+}
+
+// check have add b4
+$check = "select * from visitor where ip_address = '$ip'";
+$check_result = $con->query($check);
+
+if($check_result->num_rows == 0){
+    $insert_sql = "insert into visitor(ip_address) values('$ip')";
+    $insert_query = $con->query($insert_sql);
+}
+
 ?>
 
 
